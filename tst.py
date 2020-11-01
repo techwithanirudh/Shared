@@ -4,16 +4,17 @@ from PIL import Image, ImageTk
 import numpy as np
 from keras.models import load_model
 import random
-import os
-
-os.chdir(os.path.dirname(__file__))
 
 model = load_model('rock-paper-scissors-model.h5')
 cap = cv2.VideoCapture(0)
 root = tk.Tk()
 root.title('Rock Paper Scisscors')
+lblAction = tk.Label(root) 
+lblAction.config(font=('Courier', 14), text='You Guessed: none') 
+lblAction.place(x=230, y=10)
+lblAction1 = tk.Label(root) 
 lmain = tk.Label(root)
-lmain.pack()
+lmain.place(x=-1, y=40)
 
 REV_CLASS_MAP = {
     0: 'rock',
@@ -33,7 +34,8 @@ def detect(handimg):
     pred = model.predict(np.array([handimg]))
     move_code = np.argmax(pred[0])
     guess = mapper(move_code)
-    print('\nYou guessed', guess)
+    lblAction.config(font=('Courier', 14), text='You Guessed: ' + guess) 
+    lblAction.place(x=230, y=10)
     choices = ['rock', 'paper', 'scissors']
     computer_guess = random.choice(choices)
     print('\nComputer guessed', computer_guess)
