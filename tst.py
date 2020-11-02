@@ -87,5 +87,6 @@ def key_pressed(event):
 
 key = ''
 root.bind('<Key>', key_pressed)
+root.geometry('1600x900')
 show_frame()
 root.mainloop()
