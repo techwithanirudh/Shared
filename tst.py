@@ -1,3 +1,5 @@
+# START
+
 import tkinter as tk
 import cv2
 from PIL import Image, ImageTk
@@ -90,3 +92,5 @@ root.bind('<Key>', key_pressed)
 root.geometry('1600x900')
 show_frame()
 root.mainloop()
+
+# END
