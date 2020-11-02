@@ -1,5 +1,3 @@
-# UI
-
 import tkinter as tk
 import cv2
 from PIL import Image, ImageTk
@@ -18,6 +16,9 @@ lblAction.place(x=230, y=10)
 lblComputerG = tk.Label(root) 
 lblComputerG.config(font=('Courier', 14), text='Computer Guessed: none') 
 lblComputerG.place(x=850, y=10) 
+lblWinnner = tk.Label(root) 
+lblWinnner.config(font=('Courier', 14), text='Winner: none') 
+lblWinnner.place(x=650, y=670) 
 lmain = tk.Label(root)
 lmain.place(x=-1, y=40)
 pathimg = path + 'images/'
@@ -57,9 +58,10 @@ def detect(handimg):
     				 [2,1,0],
     				 [3,3,3]]
     result_idx = result_matrix[guess_idx][computer_idx]
-    result_messages = ['\nIt is a tie!', '\nYou win!', '\nComputer wins!', '\nError: Invalid Guess']
+    result_messages = ['Tie!', 'You!', 'Computer', 'Invalid Guess']
     result = result_messages[result_idx]
-    print(result)
+    lblWinnner.config(font=('Courier', 14), text='Winner: ' + result) 
+    lblWinnner.place(x=650, y=670) 
 
 def show_frame():
     global handimg, key
