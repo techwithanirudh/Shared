@@ -58,7 +58,7 @@ def detect(handimg):
     				 [2,1,0],
     				 [3,3,3]]
     result_idx = result_matrix[guess_idx][computer_idx]
-    result_messages = ['Tie!', 'You!', 'Computer', 'Invalid Guess']
+    result_messages = ['Tie', 'You', 'Computer', 'Invalid Guess']
     result = result_messages[result_idx]
     lblWinnner.config(font=('Courier', 14), text='Winner: ' + result) 
     lblWinnner.place(x=650, y=670) 
