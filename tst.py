@@ -5,16 +5,20 @@ import numpy as np
 from keras.models import load_model
 import random
 
+path = 'D:/Anirudh/pythonprojects/envs/auto-py-to-exe36/rock-paper-scissors-master/'
 model = load_model('rock-paper-scissors-model.h5')
 cap = cv2.VideoCapture(0)
 root = tk.Tk()
 root.title('Rock Paper Scisscors')
 lblAction = tk.Label(root) 
 lblAction.config(font=('Courier', 14), text='You Guessed: none') 
-lblAction.place(x=230, y=10)
-lblAction1 = tk.Label(root) 
+lblAction.place(x=230, y=10) 
+lblComputerG = tk.Label(root) 
+lblComputerG.config(font=('Courier', 14), text='Computer Guessed: none') 
+lblComputerG.place(x=850, y=10) 
 lmain = tk.Label(root)
 lmain.place(x=-1, y=40)
+pathimg = path + 'images/'
 
 REV_CLASS_MAP = {
     0: 'rock',
@@ -26,9 +30,11 @@ REV_CLASS_MAP = {
 def mapper(val):
     return REV_CLASS_MAP[val]
 
-def key(key):
-    global keyx
-    keyx = key
+def display_move(computer_guess):
+    global diagrams, logolbl
+    diagrams = tk.PhotoImage(file=pathimg + computer_guess + '.png')
+    logolbl = tk.Label(root, image=diagrams, width=540)
+    logolbl.place(x=700, y=50)
 
 def detect(handimg):
     pred = model.predict(np.array([handimg]))
@@ -38,7 +44,9 @@ def detect(handimg):
     lblAction.place(x=230, y=10)
     choices = ['rock', 'paper', 'scissors']
     computer_guess = random.choice(choices)
-    print('\nComputer guessed', computer_guess)
+    display_move(computer_guess)
+    lblComputerG.config(font=('Courier', 14), text='Computer Guessed: ' + computer_guess) 
+    lblComputerG.place(x=850, y=10) 
     guess_dict = {'rock': 0, 'paper': 1, 'scissors': 2}
     guess_idx = guess_dict.get(guess, 3)
     computer_idx = guess_dict.get(computer_guess)
@@ -52,7 +60,7 @@ def detect(handimg):
     print(result)
 
 def show_frame():
-    global handimg, keyx
+    global handimg, key
     _, frame = cap.read()
     frame = cv2.flip(frame, 1)
     cv2.rectangle(frame, (100, 100), (500, 500), (255, 255, 255), 2)
@@ -60,8 +68,8 @@ def show_frame():
     roi = frame[100:500, 100:500]
     handimg = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
     handimg = cv2.resize(handimg, (227, 227))
-    if keyx == 'c':
-        keyx = ''
+    if key == 'c':
+        key = ''
         detect(handimg)
     img = Image.fromarray(img)
     imgtk = ImageTk.PhotoImage(image=img)
@@ -70,9 +78,10 @@ def show_frame():
     lmain.after(10, show_frame)
 
 def key_pressed(event):
-    key(event.char)
+    global key
+    key = event.char
 
-keyx = ''
+key = ''
 root.bind('<Key>', key_pressed)
 show_frame()
 root.mainloop()
