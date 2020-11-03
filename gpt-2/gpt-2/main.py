@@ -7,13 +7,25 @@ class Ui_MainWindow(object):
     def btnCompute_clicked(self):
         path = 'C:/Users/Anirudh/AppData/Local/Programs/Python/Python38/Lib/site-packages/myModules/browser/chromedriver.exe'
         query = self.txtSent.toPlainText().replace('\n', '')
-        chromeOptions = Options()
-        chromeOptions.headless = True
-        browser = webdriver.Chrome(executable_path=path, options=chromeOptions)
-        browser.get('https://huggingface.co/gpt2?text={}'.format(query))
-        time.sleep(8)
-        elem = browser.find_element_by_class_name('output-panel')
-        self.bsrGenText.setText(self._translate('MainWindow', elem.text))
+        if query != '/[set-val]/':
+            chromeOptions = Options()
+            chromeOptions.headless = True
+            browser = webdriver.Chrome(executable_path=path, options=chromeOptions)
+            browser.get('https://huggingface.co/gpt2?text={}'.format(query))
+            time.sleep(self.sleepT)
+            elem = browser.find_element_by_class_name('output-panel')
+            self.bsrGenText.setText(self._translate('MainWindow', elem.text))
+        else:
+            while True:
+                number, ok = QtWidgets.QInputDialog().getText(None, 'Delay',
+                                         'Sleep:', QtWidgets.QLineEdit.Normal,
+                                        str(self.sleepT))
+                if ok and number:
+                    try:
+                        self.sleepT = int(number)
+                        break
+                    except ValueError:
+                        pass
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName('MainWindow')
@@ -54,6 +66,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
+        self.sleepT = 5
         self._translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(self._translate('MainWindow', 'GPT2 Playground'))
         self.lblSent.setText(self._translate('MainWindow', 'Your Sentence: '))
