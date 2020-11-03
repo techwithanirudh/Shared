@@ -4,7 +4,7 @@ from selenium import webdriver
 import time
 
 class Ui_MainWindow(object):
-    def _btnCompute_clicked(self):
+    def btnCompute_clicked(self):
         self.btnCompute.setEnabled(False)
         path = 'C:/Users/Anirudh/AppData/Local/Programs/Python/Python38/Lib/site-packages/myModules/browser/chromedriver.exe'
         query = self.txtSent.toPlainText().replace('\n', '')
