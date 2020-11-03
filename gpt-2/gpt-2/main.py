@@ -11,7 +11,7 @@ class Ui_MainWindow(object):
         chromeOptions.headless = True
         browser = webdriver.Chrome(executable_path=path, options=chromeOptions)
         browser.get('https://huggingface.co/gpt2?text={}'.format(query))
-        time.sleep(5)
+        time.sleep(15)
         elem = browser.find_element_by_class_name('output-panel')
         self.bsrGenText.setText(self._translate('MainWindow', elem.text))
 
