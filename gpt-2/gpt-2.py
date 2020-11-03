@@ -1,4 +1,3 @@
-from myModules import browser
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import time
