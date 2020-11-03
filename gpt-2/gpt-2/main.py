@@ -5,7 +5,6 @@ import time
 
 class Ui_MainWindow(object):
     def btnCompute_clicked(self):
-        self.btnCompute.setEnabled(False)
         path = 'C:/Users/Anirudh/AppData/Local/Programs/Python/Python38/Lib/site-packages/myModules/browser/chromedriver.exe'
         query = self.txtSent.toPlainText().replace('\n', '')
         chromeOptions = Options()
@@ -56,7 +55,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         self._translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(self._translate('MainWindow', 'MainWindow'))
+        MainWindow.setWindowTitle(self._translate('MainWindow', 'GPT2 Playground'))
         self.lblSent.setText(self._translate('MainWindow', 'Your Sentence: '))
         self.btnCompute.setText(self._translate('MainWindow', 'Compute'))
         self.lblGenText.setText(self._translate('MainWindow', 'GenratedText'))
