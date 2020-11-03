@@ -1,6 +1,21 @@
 from PyQt5 import QtCore, QtWidgets
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+import time
 
 class Ui_MainWindow(object):
+    def _btnCompute_clicked(self):
+        self.btnCompute.setEnabled(False)
+        path = 'C:/Users/Anirudh/AppData/Local/Programs/Python/Python38/Lib/site-packages/myModules/browser/chromedriver.exe'
+        query = self.txtSent.toPlainText().replace('\n', '')
+        chromeOptions = Options()
+        chromeOptions.headless = True
+        browser = webdriver.Chrome(executable_path=path, options=chromeOptions)
+        browser.get('https://huggingface.co/gpt2?text={}'.format(query))
+        time.sleep(5)
+        elem = browser.find_element_by_class_name('output-panel')
+        self.bsrGenText.setText(self._translate('MainWindow', elem.text))
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName('MainWindow')
         MainWindow.resize(437, 355)
@@ -40,11 +55,12 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate('MainWindow', 'MainWindow'))
-        self.lblSent.setText(_translate('MainWindow', 'Your Sentence: '))
-        self.btnCompute.setText(_translate('MainWindow', 'Compute'))
-        self.lblGenText.setText(_translate('MainWindow', 'GenratedText'))
+        self._translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(self._translate('MainWindow', 'MainWindow'))
+        self.lblSent.setText(self._translate('MainWindow', 'Your Sentence: '))
+        self.btnCompute.setText(self._translate('MainWindow', 'Compute'))
+        self.lblGenText.setText(self._translate('MainWindow', 'GenratedText'))
+        self.btnCompute.clicked.connect(self.btnCompute_clicked)
 
 if __name__ == '__main__':
     import sys
