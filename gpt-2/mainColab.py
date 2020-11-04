@@ -1,4 +1,4 @@
-# !git clone https://github.com/ilopezfr/gpt-2/
+!git clone https://github.com/ilopezfr/gpt-2/
 # import os
 # os.chdir('gpt-2')
 # !python3 download_model.py 345M 
