@@ -46,7 +46,7 @@ def inference_gpt2(
     input_text = request.args.get("input_text")
     model_name = request.args.get("model_name")    
 
-    models_dir = '/content/gpt2/' + os.path.expanduser(os.path.expandvars(models_dir))
+    models_dir = '/content/gpt-2/' + os.path.expanduser(os.path.expandvars(models_dir))
     if batch_size is None:
         batch_size = 1
     assert nsamples % batch_size == 0
