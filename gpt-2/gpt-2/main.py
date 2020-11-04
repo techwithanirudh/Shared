@@ -23,7 +23,8 @@ class Ui_MainWindow(object):
                 if ok and number:
                     try:
                         self.sleepT = int(number)
-                        break
+                        if self.sleepT > 0 and self.sleepT < 50:
+                            break
                     except ValueError:
                         pass
 
