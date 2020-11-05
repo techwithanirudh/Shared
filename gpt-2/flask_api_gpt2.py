@@ -23,7 +23,7 @@ def inference_gpt2(
     temperature=1,
     top_k=0,
     top_p=1,
-    # models_dir='models',
+    models_dir='models',
     text = None
 ):
     """Endpoints takes input text to generate text out of it.
