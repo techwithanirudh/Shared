@@ -14,9 +14,7 @@
 # import tensorflow as tf
 # from flasgger import Swagger
 # from time import time
-
 # import model, sample, encoder
-
 
 # app = Flask(__name__)
 # swagger = Swagger(app)
@@ -100,14 +98,18 @@
 #             print(text)
 #         print("=" * 80)
 
-#         output = text
 #         elapsed = time() - start
 #         print('Inference time: {}'.format(elapsed))
 
-#         return output
+#         f0 = '{'
+#         f1 = '\'genrated-text\''
+#         f2 = '}'
+#         return '{}{}: \'{}\'{}'.format(f0, f1, text, f2)
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000)''')
 from google.colab.output import eval_js
-print('URL: ' + eval_js('google.colab.kernel.proxyPort(5000)') + 'text-generate?input_text=once+upon+a+time+in+london&model_name=345M')
+import socket
+# print('URL: ' + eval_js('google.colab.kernel.proxyPort(5000)') + 'text-generate?input_text=once+upon+a+time+in+london&model_name=117M')
+print('URL: https://' + socket.gethostbyname(socket.getfqdn(socket.gethostname())) + '/text-generate?input_text=once+upon+a+time+in+london&model_name=117M')
 !python3 /content/gpt-2/src/flask_api_gpt2.py
