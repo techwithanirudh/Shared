@@ -4,7 +4,7 @@ os.chdir('gpt-2')
 # !python download_model.py 345M 
 # !python -m pip install flasgger
 # !python -m pip install tensorflow==1.14
-# with open('flask_api_gpt2.py', 'a') as file:
+# with open('src/flask_api_gpt2.py', 'a') as file:
 #   file.write('''import pickle
 # from flask import Flask, request
 # import json
