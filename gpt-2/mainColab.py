@@ -104,7 +104,7 @@
 #         f0 = '{'
 #         f1 = '\\'genrated-text\\''
 #         f2 = '}'
-#         return '{}{}: \'{}\'{}'.format(f0, f1, text, f2)
+#         return '{}{}: \\'{}\\'{}'.format(f0, f1, text, f2)
 
 # if __name__ == '__main__':
 #     app.run(host='0.0.0.0', port=5000)''')
