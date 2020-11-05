@@ -102,7 +102,7 @@
 #         print('Inference time: {}'.format(elapsed))
 
 #         f0 = '{'
-#         f1 = '\'genrated-text\''
+#         f1 = '\\'genrated-text\\''
 #         f2 = '}'
 #         return '{}{}: \'{}\'{}'.format(f0, f1, text, f2)
 
