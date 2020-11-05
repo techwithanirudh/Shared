@@ -92,11 +92,10 @@ def inference_gpt2(
             print(text)
         print("=" * 80)
 
-        output = text
         elapsed = time() - start
         print('Inference time: {}'.format(elapsed))
 
-        return output
+        return '{\'genrated-text: {}\'}'.format(text)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

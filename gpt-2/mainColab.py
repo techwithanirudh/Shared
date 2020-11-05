@@ -1,6 +1,6 @@
-!git clone https://github.com/ilopezfr/gpt-2/
-import os
-os.chdir('gpt-2')
+# !git clone https://github.com/ilopezfr/gpt-2/
+# import os
+# os.chdir('gpt-2')
 # !python download_model.py 117M 
 # !python -m pip install flasgger
 # !python -m pip install tensorflow==1.14
