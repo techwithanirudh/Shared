@@ -6,9 +6,7 @@ import numpy as np
 import tensorflow as tf
 from flasgger import Swagger
 from time import time
-
 import model, sample, encoder
-
 
 app = Flask(__name__)
 swagger = Swagger(app)
