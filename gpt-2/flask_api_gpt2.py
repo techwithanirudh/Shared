@@ -7,8 +7,10 @@ import tensorflow as tf
 from flasgger import Swagger
 from time import time
 import model, sample, encoder
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
+run_with_ngrok(app)
 swagger = Swagger(app)
 
 @app.route('/text-generate')
@@ -93,10 +95,11 @@ def inference_gpt2(
         elapsed = time() - start
         print('Inference time: {}'.format(elapsed))
 
-        f0 = '{'
-        f1 = '\'genrated-text\''
-        f2 = '}'
-        return '{}{}: \'{}\'{}'.format(f0, f1, text, f2)
+        # f0 = '{'
+        # f1 = ''genrated-text''
+        # f2 = '}'
+        # return '{}{}: '{}'{}'.format(f0, f1, text, f2)
+        return text
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run()

@@ -4,6 +4,7 @@
 # !python download_model.py 117M 
 # !python -m pip install flasgger
 # !python -m pip install tensorflow==1.14
+# !python -m pip install flask-ngrok
 # os.chdir('/content/gpt-2/src')
 # with open('flask_api_gpt2.py', 'a') as file:
 #   file.write('''import pickle
@@ -15,8 +16,10 @@
 # from flasgger import Swagger
 # from time import time
 # import model, sample, encoder
+# from flask_ngrok import run_with_ngrok
 
 # app = Flask(__name__)
+# run_with_ngrok(app)
 # swagger = Swagger(app)
 
 # @app.route('/text-generate')
@@ -102,15 +105,11 @@
 #         print('Inference time: {}'.format(elapsed))
 
 #         # f0 = '{'
-#         # f1 = '\'genrated-text\''
+#         # f1 = ''genrated-text''
 #         # f2 = '}'
-#         # return '{}{}: \'{}\'{}'.format(f0, f1, text, f2)
+#         # return '{}{}: '{}'{}'.format(f0, f1, text, f2)
 #         return text
 
 # if __name__ == '__main__':
-#     app.run(host='0.0.0.0', port=5000)''')
-from google.colab.output import eval_js
-import socket
-# print('URL: ' + eval_js('google.colab.kernel.proxyPort(5000)') + 'text-generate?input_text=once+upon+a+time+in+london&model_name=117M')
-print('URL: https://' + socket.gethostbyname(socket.getfqdn(socket.gethostname())) + '/text-generate?input_text=once+upon+a+time+in+london&model_name=117M')
+#     app.run()''')
 !python3 /content/gpt-2/src/flask_api_gpt2.py
