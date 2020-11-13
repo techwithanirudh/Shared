@@ -159,7 +159,6 @@ def TrainImages():
     message.configure(text = res) 
   
 def getImagesAndLabels(path): 
-    print('\n\n\n', os.listdir(path), '\n\n\n')
     # get the path of all the files in the folder 
     imagePaths =[os.path.join(path, f) for f in os.listdir(path)]  
     faces =[] 
@@ -199,17 +198,16 @@ def TrackImages():
             if(conf < 50): 
                 aa = df.loc[df['Id'] == Id]['Names'].values
                 tt = aa[0]
-                print('ok')
             else: 
                 Id ='Unknown'                
                 tt = str(Id)   
-            # if(conf > 75): 
-            #     noOfFile = len(os.listdir("data/4/ImagesUnknown"))+1
-            #     cv2.imwrite("data/4/ImagesUnknown/Image"+ 
-            #     str(noOfFile) + ".jpg", im[y:y + h, x:x + w])             
+            if(Id == 'Unknown'): 
+                noOfFile = len(os.listdir("data/4/ImagesUnknown"))+1
+                cv2.imwrite("data/4/ImagesUnknown/"+str(noOfFile) + ".jpg", im[y:y + h, x:x + w])
             cv2.putText(im, str(tt), (x, y + h),  
             font, 1, (255, 255, 255), 2)         
-        cv2.imshow('im', im)  
+        cv2.imshow('Live', im)  
+        cv2.imshow('Face', im[y:y + h, x:x + w])
         if (cv2.waitKey(1)== ord('q')): 
             break
     cam.release() 
