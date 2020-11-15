@@ -93,7 +93,7 @@ import spacy
 nlp = spacy.load('en_core_web_sm') 
 
 data = "Book A Flight From |['gpe']| To |['gpe']|"
-sentence = 'Book A Flight From London To Newyork'
+sentence = 'Book A Flight From London To India'
 index = 0
 ents = []
 for word in data.split(' '):
@@ -115,4 +115,4 @@ for index in range(len(ents)):
           label = ent.label_
           text = ent.text
           if label.lower() == entd.lower():
-               print(label, ':', text)
+               print(label + ':', text)
