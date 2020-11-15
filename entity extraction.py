@@ -92,7 +92,7 @@ import spacy
   
 nlp = spacy.load('en_core_web_sm') 
   
-data = "I like to |['GPE']| ahhahahaha |['GPE']|"
+data = "I like to |['DATE']| ahhahahaha |['DATE']|"
 sentence = "I like to India best is the word"
 index = 0
 ents = []
@@ -114,5 +114,5 @@ for index in range(len(ents)):
           ent = ent.split('\']|')[0]
           label = ent.label_
           text = ent.text
-          if label == ent:
+          if label.lower() == ent.lower():
                print(label, ':', text)
