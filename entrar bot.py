@@ -81,7 +81,7 @@ def takeScreenshot():
         img_name = filedialog.asksaveasfilename(filetypes=[('PNG', '*.png')])
         if not img_name.endswith('.png'):
             img_name = img_name + '.png'
-        if img_name != '':
+        if img_name != '.png':
             myScreenshot.save(img_name)
 
     myButton = tk.Button(text='Take Screenshot', command=take, bg='green',fg='white',font= 10)
