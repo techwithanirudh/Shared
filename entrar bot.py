@@ -8,6 +8,8 @@ from selenium.webdriver.common.keys import Keys
 import time
 import pyttsx3
 import threading
+import tkinter as tk
+from tkinter import filedialog
 
 Username_Default = 'B/16467'
 Password_Default = 'As23422866'
@@ -70,6 +72,24 @@ def end():
         except:
             pass
 
+def takeScreenshot():
+    root = tk.Tk()
+    root.title('Screenshot')
+
+    def take():
+        myScreenshot = pyautogui.screenshot()
+        img_name = filedialog.asksaveasfilename(filetypes=[('PNG', '*.png')])
+        if not img_name.endswith('.png'):
+            img_name = img_name + '.png'
+        if img_name != '':
+            myScreenshot.save(img_name)
+
+    myButton = tk.Button(text='Take Screenshot', command=take, bg='green',fg='white',font= 10)
+    myButton.pack()
+
+    root.mainloop()
+
+threading.Thread(target=takeScreenshot).start()
 while True:
     search()
     ask('Come Here Now')
