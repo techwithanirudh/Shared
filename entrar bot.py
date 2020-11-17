@@ -6,6 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
+import pyttsx3
+import threading
 
 Username_Default = 'B/16467'
 Password_Default = 'As23422866'
@@ -20,6 +22,7 @@ if Username and Password == 'default' or Username and Password == 'd':
     Username = Username_Default
     Password = Password_Default
 
+engine = pyttsx3.init()
 browser = browser.Chrome()
 pyautogui.moveTo(1565, 97)
 pyautogui.click()
@@ -52,6 +55,10 @@ def search():
         except:
             search_button.click()
 
+def ask(text):
+    engine.say(text)
+    engine.runAndWait()
+
 def end():
     Repeat = True
     while Repeat:
@@ -65,4 +72,5 @@ def end():
 
 while True:
     search()
+    ask('Come Here Now')
     end()
