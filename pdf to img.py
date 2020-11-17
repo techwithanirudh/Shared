@@ -37,3 +37,44 @@ for img in images:
 # dim = picture.size
 # print(f"This is the current width and height of the image: {dim}")
 # picture.save(file_name, optimize=True, quality=1) 
+
+# imgs = []
+# imgsL = 38
+# for ind in range(imgsL):
+#     imgs.append('files/' + str(ind + 1) + '.jpg')
+
+# imagesL = []
+# varImgs = ''
+# cnt = 0
+# path = 'D:/Anirudh/pythonprojects/sampleproject1'
+# for img in imgs:
+#     cnt += 1
+#     imagesL.append('img' + str(cnt))
+#     varImgs += f'{imagesL[cnt - 1]}, '
+
+# varImgs += '= '
+
+# for ind in range(imgsL):
+#     if ind != imgsL - 1:
+#         varImgs += f'cv2.imread(\'{path}/{imgs[ind]}\'), '
+#     else:
+#         varImgs += f'cv2.imread(\'{path}/{imgs[ind]}\')'
+
+# imagesL = str(imagesL).replace('\'', '')
+
+# exec(f'''
+# import cv2
+# {varImgs}
+# def vconcat_resize(img_list, interpolation  
+#                    = cv2.INTER_CUBIC): 
+#     w_min = min(img.shape[1]  
+#                 for img in img_list) 
+
+#     im_list_resize = [cv2.resize(img, 
+#                       (w_min, int(img.shape[0] * w_min / img.shape[1])), 
+#                                  interpolation = interpolation) 
+#                       for img in img_list] 
+#     return cv2.vconcat(im_list_resize)
+# img_v_resize = vconcat_resize({imagesL})
+# cv2.imwrite('{path}/data/sea.png', img_v_resize)
+# ''')
