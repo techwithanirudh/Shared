@@ -26,6 +26,6 @@ if imgname != '':
     plt.imshow(img, cmap=plt.cm.binary)
     predection = model.predict(np.array([img]) / 255)
     index = np.argmax(predection)
-    plt.xlabel(class_names[index], fontdict={'Courier New': 24})
+    plt.xlabel(class_names[index])
     plt.show()
     print(f'Prediction Is: {class_names[index]}')
