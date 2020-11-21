@@ -13,7 +13,7 @@ for imgName in imgNames:
 ind = 0
 for img in imgs:
     img = os.path.dirname(__file__) + '/' + img
-    print(img)
+    print('Resizing:', img)
     image = Image.open(img)
     image = image.resize((w, h), Image.ANTIALIAS)
     image.save(f'{img}')
