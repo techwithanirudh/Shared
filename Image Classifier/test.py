@@ -1,10 +1,8 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import datasets, models
 import os
-
-from tensorflow.python.keras.datasets.cifar10 import load_data
 
 os.chdir(os.path.dirname(__file__))
 
@@ -26,3 +24,10 @@ training_labels = training_labels[:20000]
 testing_images = testing_images[:4000]
 testing_labels = testing_labels[:4000]
 model = models.load_model('image_classifier.model')
+img = cv.imread('car.png')
+img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
+plt.imshow(img, cmap=plt.cm.binary)
+predection = model.predict(np.array([img]) / 255)
+index = np.argmax(predection)
+print(f'Prediction Is: {class_names[index]}')
+plt.show()
