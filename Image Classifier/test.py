@@ -1,11 +1,9 @@
-from logging import root
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, models
 import os
 from tkinter import filedialog
-import tkinter
 
 os.chdir(os.path.dirname(__file__))
 
