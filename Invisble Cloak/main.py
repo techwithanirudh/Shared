@@ -8,7 +8,7 @@ os.chdir(os.path.dirname(__file__))
 vc = cv2.VideoCapture(0)
 
 # Step 1: Capture background image
-print('Press any key once suitable background has been obtained: ')
+print('Press any key once suitable background has been obtained')
 while cv2.waitKey(2) == -1:
 	frame = vc.read()[1]
 	frame = cv2.flip(frame, 1)
@@ -16,10 +16,10 @@ while cv2.waitKey(2) == -1:
 	cv2.imshow('Background', frame)
 cv2.imwrite('background.png', frame)
 cv2.destroyAllWindows()
-print('\n\n\t\tBackground Image has been saved successfully !!!')
+print('\n\n\t\tBackground Image has been saved successfully!!!')
 
 # Step 2: HSV Color Range for Cloak
-input('Press Enter to start Calibration: ')
+input('Press Enter to start Calibration ')
 Lower, Upper = Calibration(vc)
 print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
 
@@ -34,7 +34,7 @@ while cv2.waitKey(1) == -1:
 	mask = cv2.inRange(hsv, np.array(Lower), np.array(Upper))
 	mask = Transform(mask)
 	frame = np.array(frame)
-	temp = cv2.bitwise_and(background, background,mask=mask)
+	temp = cv2.bitwise_and(background, background, mask=mask)
 	mask = cv2.bitwise_not(mask)
 	frame = cv2.bitwise_and(frame, frame, mask=mask)
 	frame = cv2.add(frame, temp)
