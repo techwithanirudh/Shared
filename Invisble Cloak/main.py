@@ -23,7 +23,6 @@ Lower, Upper = Calibration(vc)
 print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
 
 # Step 3: Real time application
-os.system('cls')
 background = cv2.imread('background.png')
 while True:
     frame = vc.read()[1]
@@ -46,8 +45,8 @@ while True:
         cv2.imshow('Background', frame)
         cv2.imwrite('background.png', frame)
         background = cv2.imread('background.png')
+        print('Background Image has been saved successfully!!!')
     if key == ord('c'):
-        os.system('cls')
         Lower, Upper = Calibration(vc)
         print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
     if key == 27: # esc
