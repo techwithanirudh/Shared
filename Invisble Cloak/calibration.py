@@ -26,7 +26,7 @@ def Calibration(vc):
     while cv2.waitKey(2) == -1:
         frame = vc.read()[1]
         frame = np.flip(frame, 1)
-        cv2.imshow('Frame', cv2.resize(frame, (1280, 720)))
+        cv2.imshow('Frame', frame)
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         
         L_HUE = cv2.getTrackbarPos('L_HUE', 'Calibrate HSV')
