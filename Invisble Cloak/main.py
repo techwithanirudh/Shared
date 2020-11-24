@@ -16,15 +16,13 @@ while cv2.waitKey(2) == -1:
 	cv2.imshow('Background', frame)
 cv2.imwrite('background.png', frame)
 cv2.destroyAllWindows()
-print('\n\n\t\tBackground Image has been saved successfully!!!')
+print('Background Image has been saved successfully!!!')
 
 # Step 2: HSV Color Range for Cloak
-input('Press Enter to start Calibration ')
 Lower, Upper = Calibration(vc)
 print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
 
 # Step 3: Real time application
-input('Press enter to start Magic :) ')
 background = cv2.imread('background.png')
 while cv2.waitKey(2) == 27:
     return_value, frame = vc.read()
@@ -39,9 +37,13 @@ while cv2.waitKey(2) == 27:
     frame = cv2.bitwise_and(frame, frame, mask=mask)
     frame = cv2.add(frame, temp)
     cv2.imshow('Cloak', frame)
-    if cv2.waitKey(2) == ord('b'):
+    key = cv2.waitKey(2)
+    if key == ord('b'):
         cv2.imshow('Background', frame)
         cv2.imwrite('background.png', frame)
+    if key == ord('c'):
+        Lower, Upper = Calibration(vc)
+        print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
 
 vc.release()
 cv2.destroyAllWindows()
