@@ -1,3 +1,4 @@
+# Funny: L_VAL is set to 65 for AR
 import cv2
 import numpy as np
 from calibration import Calibration, Transform
