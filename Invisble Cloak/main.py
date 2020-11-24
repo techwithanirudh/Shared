@@ -21,7 +21,7 @@ print('\n\n\t\tBackground Image has been saved successfully !!!')
 # Step 2: HSV Color Range for Cloak
 input('Press Enter to start Calibration: ')
 Lower, Upper = Calibration(vc)
-print('L:', Lower, 'U:', Upper)
+print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
 
 # Step 3: Real time application
 input('Press enter to start Magic :) ')
