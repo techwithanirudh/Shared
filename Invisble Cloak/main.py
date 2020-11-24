@@ -24,7 +24,7 @@ print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU
 
 # Step 3: Real time application
 background = cv2.imread('background.png')
-while cv2.waitKey(2) == 27:
+while True:
     return_value, frame = vc.read()
     frame = cv2.flip(frame, 1)
     frame = cv2.resize(frame, (1280, 720))
@@ -44,6 +44,8 @@ while cv2.waitKey(2) == 27:
     if key == ord('c'):
         Lower, Upper = Calibration(vc)
         print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
+    if key == 27:
+        break
 
 vc.release()
 cv2.destroyAllWindows()
