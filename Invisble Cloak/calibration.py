@@ -26,23 +26,24 @@ def Calibration(vc):
 	while cv2.waitKey(2) == -1:
 		frame = vc.read()[1]
 		frame = np.flip(frame, 1)
-		cv2.imshow('Frame', frame)
-		hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        frame = cv2.resize(frame, (1280, 720))
+        cv2.imshow('Frame', frame)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 		
-		L_HUE = cv2.getTrackbarPos('L_HUE', 'Calibrate HSV')
-		L_SAT = cv2.getTrackbarPos('L_SAT', 'Calibrate HSV')
-		L_VAL = cv2.getTrackbarPos('L_VAL', 'Calibrate HSV')
-		U_HUE = cv2.getTrackbarPos('U_HUE', 'Calibrate HSV')
-		U_SAT = cv2.getTrackbarPos('U_SAT', 'Calibrate HSV')
-		U_VAL = cv2.getTrackbarPos('U_VAL', 'Calibrate HSV')
+        L_HUE = cv2.getTrackbarPos('L_HUE', 'Calibrate HSV')
+        L_SAT = cv2.getTrackbarPos('L_SAT', 'Calibrate HSV')
+        L_VAL = cv2.getTrackbarPos('L_VAL', 'Calibrate HSV')
+        U_HUE = cv2.getTrackbarPos('U_HUE', 'Calibrate HSV')
+        U_SAT = cv2.getTrackbarPos('U_SAT', 'Calibrate HSV')
+        U_VAL = cv2.getTrackbarPos('U_VAL', 'Calibrate HSV')
 		
-		Lower = [L_HUE, L_SAT, L_VAL]
-		Upper = [U_HUE, U_SAT, U_VAL]
+        Lower = [L_HUE, L_SAT, L_VAL]
+        Upper = [U_HUE, U_SAT, U_VAL]
 		
-		mask = cv2.inRange(hsv, np.array(Lower), np.array(Upper))
-		mask = Transform(mask)
+        mask = cv2.inRange(hsv, np.array(Lower), np.array(Upper))
+        mask = Transform(mask)
 
-		cv2.imshow('Calibrate', mask)
+        cv2.imshow('Calibrate', mask)
 
 	cv2.destroyAllWindows()
 	return Lower, Upper
