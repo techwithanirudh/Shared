@@ -25,7 +25,7 @@ print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU
 # Step 3: Real time application
 background = cv2.imread('background.png')
 while True:
-    return_value, frame = vc.read()
+    frame = vc.read()[1]
     frame = cv2.flip(frame, 1)
     frame = cv2.resize(frame, (1280, 720))
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -37,14 +37,18 @@ while True:
     frame = cv2.bitwise_and(frame, frame, mask=mask)
     frame = cv2.add(frame, temp)
     cv2.imshow('Cloak', frame)
-    key = cv2.waitKey(2)
+    key = cv2.waitKey(20)
     if key == ord('b'):
+        frame = vc.read()[1]
+        frame = cv2.flip(frame, 1)
+        frame = cv2.resize(frame, (1280, 720))
         cv2.imshow('Background', frame)
         cv2.imwrite('background.png', frame)
+        background = cv2.imread('background.png')
     if key == ord('c'):
         Lower, Upper = Calibration(vc)
         print(f'HSV VALUES\n\nL_HUE: {Lower[0]}\nL_SAT: {Lower[1]}\nL_VAL: {Lower[2]}\nU_HUE: {Upper[0]}\nU_SAT: {Upper[1]}\nU_VAL: {Upper[2]}\n')
-    if key == 27:
+    if key == 27: # esc
         break
 
 vc.release()
