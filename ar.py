@@ -5,13 +5,13 @@ import numpy as np
 os.chdir(os.path.dirname(__file__))
 
 # cap = cv2.VideoCapture(0)
-imgTarget = cv2.imread('Photos/Clock3.png')
-myVid = cv2.VideoCapture('VIDEOS/cup.mp4')
+imgTarget = cv2.imread('tiger.png')
+myVid = cv2.VideoCapture('cup.mp4')
 detection = True
 frameCounter = 0
 # success, imgVideo = myVid.read()
 hT, wT, cT = imgTarget.shape
-imgAR = cv2.imread('Photos/paper.png')
+imgAR = cv2.imread('paper.png')
 # imgVideo = cv2.resize(imgVideo, (wT, hT))
 imgAR = cv2.resize(imgAR, (hT, wT))
 orb = cv2.ORB_create(nfeatures=1000)
@@ -20,7 +20,7 @@ kp1, des1 = orb.detectAndCompute(imgTarget, None)
 
 while True:
     # success, imgWebcam = cap.read()
-    imgWebcam = cv2.imread('Photos/Clock2.png')
+    imgWebcam = cv2.imread('tiger1.png')
     imgAug = imgWebcam.copy()
     kp2, des2 = orb.detectAndCompute(imgWebcam, None)
     # imgWebcam = cv2.drawKeypoints(imgWebcam, kp2, None)
