@@ -6,7 +6,7 @@ os.chdir(os.path.dirname(__file__))
 
 # cap = cv2.VideoCapture(0)
 imgTarget = cv2.imread('tiger.png')
-myVid = cv2.VideoCapture('cup.mp4')
+myVid = cv2.VideoCapture('tiger.mp4')
 detection = True
 frameCounter = 0
 # success, imgVideo = myVid.read()
