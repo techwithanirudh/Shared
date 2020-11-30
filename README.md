@@ -57,7 +57,7 @@ root.config(menu=menubar)
 subMenu = Menu(menubar, tearoff=0)
 
 playlist = []
-
+played = False
 
 # playlist - contains the full path + filename
 # playlistbox - contains just the filename
@@ -138,8 +138,14 @@ currenttimelabel.pack()
 
 def show_details(play_song):
     global clip
-    clip = mp.VideoFileClip(play_song)
-    total_length = clip.duration
+    file_data = os.path.splitext(play_song)
+    types = ['.mp4', '.mov', '.mpg', '.wmv', '.rm']
+    if file_data[1].lower() in types:
+        clip = mp.VideoFileClip(play_song)
+        total_length = clip.duration
+    else:
+        clip = mp.AudioFileClip(play_song)
+        total_length = clip.duration
     # div - total_length/60, mod - total_length % 60
     mins, secs = divmod(total_length, 60)
     mins = round(mins)
@@ -153,7 +159,7 @@ def show_details(play_song):
 
 def start_count(t):
     global paused
-    # mixer.music.get_busy(): - Returns FALSE when we press the stop button (music stop playing)
+    # mixer.music.get_busy(): - Returns False when we press the stop button (music stop playing)
     # Continue - Ignores all of the statements below it. We check if music is paused or not.
     current_time = 0
     while current_time <= t:
@@ -170,29 +176,32 @@ def start_count(t):
 
 
 def play_music():
-    global paused, media_player
+    global paused, media_player, played
 
-    if paused:
-        media_player.pause()
-        statusbar['text'] = "Music Resumed"
-        paused = FALSE
-    else:
-        stop_music()
-        # time.sleep(1)
+    # stop_music()
+    # time.sleep(1)
+    if not played:
         selected_song = playlistbox.curselection()
         selected_song = int(selected_song[0])
         play_it = playlist[selected_song]
         show_details(play_it)
         media_player = vlc.MediaPlayer(play_it)
         media_player.play() 
+        played = True
+    else:
+        paused = True
+        media_player.pause()
+        statusbar['text'] = "Music Resumed"
 
 def stop_music():
+    global played
     # mixer.music.stop()
-    # media_player.stop()
+    played = False
+    media_player.stop()
     statusbar['text'] = "Music Stopped"
 
 
-paused = FALSE
+paused = False
 
 def rewind_music():
     play_music()
@@ -205,7 +214,7 @@ def set_vol(val):
     # set_volume of mixer takes value only from 0 to 1. Example - 0, 0.1,0.55,0.54.0.99,1
 
 
-muted = FALSE
+muted = False
 
 
 def mute_music():
@@ -214,12 +223,12 @@ def mute_music():
         mixer.music.set_volume(0.7)
         volumeBtn.configure(image=volumePhoto)
         scale.set(70)
-        muted = FALSE
+        muted = False
     else:  # mute the music
         mixer.music.set_volume(0)
         volumeBtn.configure(image=mutePhoto)
         scale.set(0)
-        muted = TRUE
+        muted = True
 
 
 middleframe = Frame(rightframe)
