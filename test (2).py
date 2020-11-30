@@ -4,13 +4,11 @@ import time
 import tkinter.messagebox
 from tkinter import *
 from tkinter import filedialog
-
+import moviepy.editor as mp
 from tkinter import ttk
 from ttkthemes import themed_tk as tk
-from mutagen.mp3 import MP3
 from pygame import mixer
-import cv2 
-os.add_dll_directory(os.path.dirname(__file__) + './VLC')
+os.add_dll_directory(os.path.dirname(__file__) + '/VLC')
 import vlc
 
 os.chdir(os.path.dirname(__file__))
@@ -24,9 +22,6 @@ root.set_theme("radiance")         # Sets an available theme
 #
 # Styles - normal, bold, roman, italic, underline, and overstrike.
 
-statusbar = ttk.Label(root, text="Welcome to Melody", relief=SUNKEN, anchor=W, font='Times 10 italic')
-statusbar.pack(side=BOTTOM, fill=X)
-
 # Create the menubar
 menubar = Menu(root)
 root.config(menu=menubar)
@@ -36,7 +31,9 @@ root.config(menu=menubar)
 subMenu = Menu(menubar, tearoff=0)
 
 playlist = []
-
+played = False
+paused1 = True
+first = 1
 
 # playlist - contains the full path + filename
 # playlistbox - contains just the filename
@@ -46,11 +43,6 @@ def browse_file():
     global filename_path
     filename_path = filedialog.askopenfilename()
     add_to_playlist(filename_path)
-    try:
-        mixer.music.queue(filename_path)
-    except:
-        pass
-
 
 def add_to_playlist(filename):
     filename = os.path.basename(filename)
@@ -66,7 +58,7 @@ subMenu.add_command(label="Exit", command=root.destroy)
 
 
 def about_us():
-    tkinter.messagebox.showinfo('About Melody', 'This is a music player build using Python Tkinter by @attreyabhatt')
+    tkinter.messagebox.showinfo('About Melody', 'This is a music media_player build using Python Tkinter by @attreyabhatt')
 
 
 subMenu = Menu(menubar, tearoff=0)
@@ -116,17 +108,15 @@ currenttimelabel.pack()
 
 
 def show_details(play_song):
+    global clip
     file_data = os.path.splitext(play_song)
-
-    if file_data[1] == '.mp4':
-        pass
-    if file_data[1] == '.mp3':
-        audio = MP3(play_song)
-        total_length = audio.info.length
-    if file_data[1] == '.wav':
-        a = mixer.Sound(play_song)
-        total_length = a.get_length()
-
+    types = ['.mp4', '.mov', '.mpg', '.wmv', '.rm']
+    if file_data[1].lower() in types:
+        clip = mp.VideoFileClip(play_song)
+        total_length = clip.duration
+    else:
+        clip = mp.AudioFileClip(play_song)
+        total_length = clip.duration
     # div - total_length/60, mod - total_length % 60
     mins, secs = divmod(total_length, 60)
     mins = round(mins)
@@ -140,7 +130,7 @@ def show_details(play_song):
 
 def start_count(t):
     global paused
-    # mixer.music.get_busy(): - Returns FALSE when we press the stop button (music stop playing)
+    # mixer.music.get_busy(): - Returns False when we press the stop button (music stop playing)
     # Continue - Ignores all of the statements below it. We check if music is paused or not.
     current_time = 0
     while current_time <= t:
@@ -157,69 +147,80 @@ def start_count(t):
 
 
 def play_music():
-    global paused, player
+    global paused, media_player, played, paused1, playBtn, first
 
-    if paused:
-        player.pause()
-        statusbar['text'] = "Music Resumed"
-        paused = FALSE
-    else:
-        stop_music()
-        time.sleep(1)
+    # stop_music()
+    # time.sleep(1)
+    if not played:
         selected_song = playlistbox.curselection()
         selected_song = int(selected_song[0])
         play_it = playlist[selected_song]
-        player = vlc.MediaPlayer(play_it)
-        player.play()
+        show_details(play_it)
+        media_player = vlc.MediaPlayer(play_it)
+        media_player.play() 
+        played = True
+        first -= 1
+        playBtn.config(image=pausePhoto)
+    else:
+        while True:
+            print(first)
+            if first < 1:
+                playBtn.config(image=playPhoto)
+                first = 2
+                print('non in ai1')
+                break
+            if not paused1:
+                paused = False
+                paused1 = True
+                playBtn.config(image=playPhoto)
+                print('non in')
+                break
+            if paused1:
+                paused = True
+                paused1 = False
+                playBtn.config(image=pausePhoto)
+                print('in')
+                break
+        media_player.pause()
 
 def stop_music():
+    global played, playBtn
     # mixer.music.stop()
-    # player.stop()
-    statusbar['text'] = "Music Stopped"
+    played = False
+    media_player.stop()
+    playBtn.config(image=playPhoto)
 
-
-paused = FALSE
-
-
-def pause_music():
-    global paused
-    paused = TRUE
-    player.pause()
-    statusbar['text'] = "Music Paused"
-
+paused = False
 
 def rewind_music():
     play_music()
-    statusbar['text'] = "Music Rewinded"
-
 
 def set_vol(val):
-    volume = float(val) / 100
-    mixer.music.set_volume(volume)
+    global volume
+    volume = int(float(val))
+    media_player.audio_set_volume(volume)
     # set_volume of mixer takes value only from 0 to 1. Example - 0, 0.1,0.55,0.54.0.99,1
 
-
-muted = FALSE
-
+muted = False
 
 def mute_music():
     global muted
     if muted:  # Unmute the music
-        mixer.music.set_volume(0.7)
+        media_player.audio_set_volume(70)
         volumeBtn.configure(image=volumePhoto)
         scale.set(70)
-        muted = FALSE
+        muted = False
     else:  # mute the music
-        mixer.music.set_volume(0)
+        media_player.audio_set_volume(0)
         volumeBtn.configure(image=mutePhoto)
         scale.set(0)
-        muted = TRUE
-
+        muted = True
 
 middleframe = Frame(rightframe)
 middleframe.pack(pady=30, padx=30)
 
 playPhoto = PhotoImage(file='images/play.png')
+pausePhoto = PhotoImage(file='images/pause.png')
 playBtn = ttk.Button(middleframe, image=playPhoto, command=play_music)
 playBtn.grid(row=0, column=0, padx=10)
 
@@ -227,18 +228,17 @@ stopPhoto = PhotoImage(file='images/stop.png')
 stopBtn = ttk.Button(middleframe, image=stopPhoto, command=stop_music)
 stopBtn.grid(row=0, column=1, padx=10)
 
-pausePhoto = PhotoImage(file='images/pause.png')
-pauseBtn = ttk.Button(middleframe, image=pausePhoto, command=pause_music)
-pauseBtn.grid(row=0, column=2, padx=10)
+# pauseBtn = ttk.Button(middleframe, image=pausePhoto, command=pause_music)
+# pauseBtn.grid(row=0, column=2, padx=10)
 
 # Bottom Frame for volume, rewind, mute etc.
 
 bottomframe = Frame(rightframe)
 bottomframe.pack()
 
-rewindPhoto = PhotoImage(file='images/rewind.png')
-rewindBtn = ttk.Button(bottomframe, image=rewindPhoto, command=rewind_music)
-rewindBtn.grid(row=0, column=0)
+# rewindPhoto = PhotoImage(file='images/rewind.png')
+# rewindBtn = ttk.Button(bottomframe, image=rewindPhoto, command=rewind_music)
+# rewindBtn.grid(row=0, column=0)
 
 mutePhoto = PhotoImage(file='images/mute.png')
 volumePhoto = PhotoImage(file='images/volume.png')
@@ -246,8 +246,7 @@ volumeBtn = ttk.Button(bottomframe, image=volumePhoto, command=mute_music)
 volumeBtn.grid(row=0, column=1)
 
 scale = ttk.Scale(bottomframe, from_=0, to=100, orient=HORIZONTAL, command=set_vol)
-scale.set(70)  # implement the default value of scale when music player starts
-mixer.music.set_volume(0.7)
+scale.set(70)  # implement the default value of scale when music media_player starts
 scale.grid(row=0, column=2, pady=15, padx=30)
 
 
