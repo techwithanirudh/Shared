@@ -34,6 +34,7 @@ playlist = []
 played = False
 paused = False
 paused1 = True
+stop = False
 first = 1
 first1 = True
 
@@ -131,7 +132,7 @@ def show_details(play_song):
 
 
 def start_count(t):
-    global first1, current_time
+    global first1, current_time, stop
     # mixer.music.get_busy(): - Returns False when we press the stop button (music stop playing)
     # Continue - Ignores all of the statements below it. We check if music is paused or not.
     current_time = 0
@@ -146,19 +147,23 @@ def start_count(t):
             currenttimelabel['text'] = "Current Time" + ' - ' + timeformat
             time.sleep(1)
             current_time += 1
+        if stop: 
+            break
 
 def play_music():
-    global media_player, played, paused1, playBtn, first, paused
+    global media_player, played, paused1, playBtn, first, paused, stop
 
     # stop_music()
     # time.sleep(1)
     if not played:
+        stop = False
         selected_song = playlistbox.curselection()
         selected_song = int(selected_song[0])
         play_it = playlist[selected_song]
         show_details(play_it)
         media_player = vlc.MediaPlayer(play_it)
         media_player.play() 
+        media_player.audio_set_volume(70)
         played = True
         first -= 1
         playBtn.config(image=pausePhoto)
@@ -186,15 +191,17 @@ def play_music():
         media_player.pause()
 
 def stop_music():
-    global played, playBtn, paused, current_time, playlist, first, first1, paused1, t1
+    global played, playBtn, paused, current_time, playlist, first, first1, paused1, t1, stop, lengthlabel, currenttimelabel
     # mixer.music.stop()
-    playlist = []
     played = False
     paused = False
     paused1 = True
     first = 1
     first1 = True
-    t1.do_run = False
+    stop = True
+    t1.join() 
+    lengthlabel.config(text='Total Length : --:--')
+    currenttimelabel.config(text='Current Time : --:--')
     media_player.stop()
     playBtn.config(image=playPhoto)
 
