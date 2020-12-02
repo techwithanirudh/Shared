@@ -30,15 +30,16 @@ while check:
     counter += 1
 
 frame_list.pop()
-frame_list.reverse()
+# frame_list.reverse()
 fps = cap.get(cv2.CAP_PROP_FPS)
 time_delta = 1.0 / fps
-second = 283
+second = 0.7
 
 for frame in frame_list:
-    cv2.imshow("Frame" , frame_list[int(fps * second)])
+    cv2.imshow('Frame' , frame_list[int(fps * second)])
     time.sleep(time_delta)
-    if cv2.waitKey(25) and 0xFF == ord("q"):
+    key = cv2.waitKey(20)
+    if key == 27:
         break
 
 cap.release()
