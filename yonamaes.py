@@ -258,7 +258,7 @@ volumePhoto = PhotoImage(file='images/volume.png')
 volumeBtn = ttk.Button(bottomframe, image=volumePhoto, command=mute_music)
 volumeBtn.grid(row=0, column=1)
 
-scale = ttk.Scale(bottomframe, from_=0, to=100, orient=HORIZONTAL, command=set_vol)
+scale = ttk.Scale(bottomframe, from_=0, to=150, orient=HORIZONTAL, command=set_vol)
 scale.set(70)  # implement the default value of scale when music media_player starts
 scale.grid(row=0, column=2, pady=15, padx=30)
 
