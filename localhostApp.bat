@@ -1,0 +1,1 @@
+python D:\Anirudh\pythonprojects\sampleproject1\localhostApp.py

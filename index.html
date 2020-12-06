@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <body>
+            <h1 id='show_website' style="text-align: center;"></h1>
+            <script>
+                var open_website = '{{open_website}}';
+                var website = '';
+
+                if (open_website == 'youtube')
+                {
+                    website = 'https://www.youtube.com';
+                }
+                else if (open_website == 'google')
+                {
+                    website = 'https://www.google.com';
+                }
+                else if (open_website == 'amazon')
+                {
+                    website = 'https://www.amazon.com';
+                }
+                else if (open_website == 'duckduckgo')
+                {
+                    website = 'https://www.duckduckgo.com';
+                }
+                else
+                {
+                    
+                }
+                if (website != '')
+                {
+                    document.getElementById('show_website').innerText = 'Opening ' + open_website
+                    document.location.href = website;
+                }
+                else
+                {
+                    document.getElementById('show_website').innerText = 'Sorry! We can\'t open ' + open_website + ' yet.'
+                }
+        </script>
+        </body>
+    </html>
+</head>
