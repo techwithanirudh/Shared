@@ -273,3 +273,11 @@ def on_closing():
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
+
+reminderx add
+if __name__ == '__main__':
+    while True:
+        try:
+            find_reminders_due()
+        except:
+            pass
