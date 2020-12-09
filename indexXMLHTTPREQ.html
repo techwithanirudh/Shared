@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script>
+function submitForm()
+{
+  var json = {
+  'due_date': 'forever, 11:10 pm',
+  'interval': '120',
+  'message': 'HI',
+}
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST','http://localhost:5000/api/reminders', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function(){ alert ('Success: ', xhr.responseText); } // success case
+  xhr.onerror = function(){ alert ('Error: ', xhr.responseText); } // failure case
+  var oFormElement = document.getElementById('form');
+  //var formdata = new FormData (oFormElement);
+  //xhr.send(new FormData (oFormElement));
+
+  var json1 = {
+  'due_date': document.getElementById('due_date').value,
+  'interval': document.getElementById('interval').value,
+  'message': document.getElementById('message').value,
+}
+alert(JSON.stringify(json1));
+
+  xhr.send(JSON.stringify(json1));
+  return false;
+}
+</script>
+</head>
+
+<body>
+<div class="w3-container w3-blue">
+    <h2>Add Reminder</h2>
+</div>
+<form id="form" class="w3-container" >
+    <p>
+    <label>Due-Date</label>
+    <input class="w3-input" type="text" id="due_date" name="due_date"></p>
+    <p>
+    <label>Message</label>
+    <input class="w3-input" type="text" id="message" name="message"></p>
+    <p>
+    <label>Interval</label>
+    <input class="w3-input" type="text" id="interval" name="interval"></p>
+    <button class="w3-button" type="button" onclick="submitForm()">Add Reminder</button>
+</form>
+</body>
+</html>
