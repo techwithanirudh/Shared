@@ -22,8 +22,7 @@ print("Number of Contours found = " + str(len(contours)))
 cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
 for contour in contours:
     x, y, _, _ = cv2.boundingRect(contour)
-    kx = contours[contour][:0,0]
-    ky = contours[contour][:0,1]
+    print(x, y)
 cv2.imshow('Contours', image) 
 cv2.waitKey(0) 
 
