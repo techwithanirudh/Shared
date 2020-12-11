@@ -14,16 +14,21 @@
 # img.putdata(newData)
 # img.save('D:/Anirudh/pythonprojects/sampleproject1/data/Images/5/scratch1rem.png')
 
+path = 'D:/Anirudh/pythonprojects/sampleproject1/data/Images/8/'
+
 from PIL import Image
 import os
 
-pngFiles = []
-colour = [255, 255, 255]
-files = os.listdir('D:/Anirudh/pythonprojects/sampleproject1/data/Images/8/')
-for file in files:
-    if file.endswith('.png', '.jpg', '.jpeg'):
-        pngFiles.append(file)
+os.chdir(path)
 
+pngFiles = []
+fmat = '.png'
+colour = [255, 255, 255]
+files = os.listdir(path)
+for file in files:
+    if file.endswith(fmat):
+        pngFiles.append(file)
+print(pngFiles)
 for file in pngFiles:
     img = Image.open(file)
     img = img.convert('RGBA')
