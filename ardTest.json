@@ -1,0 +1,43 @@
+{"intents": [
+        {"tag": "greeting",
+         "patterns": ["Hi there", "How are you", "Is anyone there?","Hey","Hola", "Hello", "Good day"],
+         "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+         "context": [""]
+        },
+        {"tag": "goodbye",
+         "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+         "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+         "context": [""]
+        },
+        {"tag": "thanks",
+         "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+         "responses": ["Happy to help!", "Any time!", "My pleasure"],
+         "context": [""]
+        },
+        {"tag": "options",
+         "patterns": ["How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
+         "responses": ["I can tell facts about arduino and some projects", "I can offer you facts about arduino and some projects"],
+         "context": [""]
+        },
+        {"tag": "factsArduino",
+         "patterns": ["Tell me a few facts", "Open facts", "Give me a list of facts about arduino"],
+         "responses": ["Did you know that arduino is"],
+         "context": [""]
+        },
+        {"tag": "blood_pressure",
+         "patterns": ["Open blood pressure module", "Task related to blood pressure", "Blood pressure data entry", "I want to log blood pressure results", "Blood pressure data management" ],
+         "responses": ["Navigating to Blood Pressure module"],
+         "context": [""]
+        },
+        {"tag": "WhatArduino",
+         "patterns": ["What is arduino", "Tell what is arduino?", "I dont know what is arduino?"],
+         "responses": ["Arduino is a microcontroller which has analog and digital pins. It has one built in led which glows if you turn on pin 13. If the arduino is powered up the on led will glow green. Analog pins are pins which are the pins that only supports analog divices. It gives a value from 0 to 1023. Digital pins are pins that can only be used for digital divises and it can only turn on and off and some pins which are pwm can give variable power. Please vist https://en.wikipedia.org/wiki/Arduino_Uno for more info.."],
+         "context": [""]
+        },
+        {"tag": "search_hospital_by_type",
+         "patterns": [],
+         "responses": ["Loading hospital details"],
+         "context": [""]
+        }
+   ]
+}
