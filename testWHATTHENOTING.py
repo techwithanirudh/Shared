@@ -1,6 +1,5 @@
 import time
 from myModules import browser
-import pyqrcode 
 
 browser = browser.Chrome()
 browser.get('https://web.whatsapp.com/')
