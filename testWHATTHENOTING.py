@@ -12,9 +12,9 @@ print(code)
 # ...
 time.sleep(10)
 wait = WebDriverWait(browser, 600)
-target = '"Shalini"'
+target = 'Shalini'
 string = "Python sent a message"
-x_arg = ' //span[contains(@title, ' + target +')]'
+x_arg = ' //span[contains(@title, ' + '\"' + target + '\"' + ')]'
 target = wait.until(ec.presence_of_element_located((By.XPATH, x_arg)))
 target.click()
 input_box = browser.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')
