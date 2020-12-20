@@ -11,6 +11,11 @@ def shuffle_word(word):
 
 while True:
     word = shuffle_word(word)
-    if spell.correction(word) != word:
-        print('Word Is:', spell.correction(word))
-        break
+    corrected = spell.correction(word)
+    if corrected != word:
+        if len(corrected) == len(word):
+            correctedL = list(corrected)
+            if all(letter in correctedL for letter in word):
+                print(corrected)
+                print('Word Is:', spell.correction(word))
+                break
