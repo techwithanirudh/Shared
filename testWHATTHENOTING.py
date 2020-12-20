@@ -12,7 +12,7 @@ print(code)
 # ...
 time.sleep(10)
 wait = WebDriverWait(browser, 600)
-target = 'Shalini'
+target = 'ABC'
 string = "Python sent a message"
 x_arg = ' //span[contains(@title, ' + '\"' + target + '\"' + ')]'
 target = wait.until(ec.presence_of_element_located((By.XPATH, x_arg)))
