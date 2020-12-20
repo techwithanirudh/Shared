@@ -9,8 +9,6 @@ code = element.get_attribute('innerHTML')
 code = code.split('data-ref="')[1]
 code = code.split('"><span>')[0]
 print(code)
-code = create(code)
-code.show()
 # ...
 time.sleep(10)
 wait = WebDriverWait(browser, 600)
