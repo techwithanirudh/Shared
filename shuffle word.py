@@ -22,7 +22,7 @@ while True:
         if len(corrected) == len(word):
             correctedL = list(corrected)
             if all(letter in correctedL for letter in word):
-                if corrected == wordInp:
+                if corrected == wordInp.lower():
                     c = time.time()
                     print('Seconds:', c - s)
                     print('Times:', times)
