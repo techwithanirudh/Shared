@@ -22,5 +22,5 @@ while True:
             if all(letter in correctedL for letter in word):
                 if corrected == wordInp:
                     print('Times: ', times)
-                    print('Word Is:', corrected)
+                    print('Word Is:', word)
                     break
