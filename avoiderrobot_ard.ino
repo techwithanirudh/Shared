@@ -36,17 +36,17 @@ void loop()
      MyServoMotor1.write(i);
      int val = 0.01723 * readUltrasonicDistance(4, 3);
      Serial.println(val);
-     if val < 20
+     if (val < 20)
      {
-        Serial.println('Going Back and Turning');
+        Serial.println("Going Back and Turning");
         digitalWrite(8, HIGH);
         digitalWrite(9, LOW);
         digitalWrite(10, HIGH);
         digitalWrite(11, LOW);
         delay(1000);
-        int rand = random(1)
+        int rand = random(1);
         Serial.println(rand);
-        if rand
+        if (rand)
         {
             digitalWrite(8, HIGH);
             digitalWrite(9, LOW);
@@ -68,17 +68,17 @@ void loop()
      MyServoMotor1.write(i);
      int val = 0.01723 * readUltrasonicDistance(4, 3);
      Serial.println(val);
-     if val < 20
+     if (val < 20)
      {
-        Serial.println('Going Back and Turning');
+        Serial.println("Going Back and Turning");
         digitalWrite(8, HIGH);
         digitalWrite(9, LOW);
         digitalWrite(10, HIGH);
         digitalWrite(11, LOW);
         delay(1000);
-        int rand = random(1)
+        int rand = random(1);
         Serial.println(rand);
-        if rand
+        if (rand)
         {
             digitalWrite(8, HIGH);
             digitalWrite(9, LOW);
