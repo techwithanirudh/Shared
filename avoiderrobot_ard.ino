@@ -44,7 +44,7 @@ void loop()
         digitalWrite(10, HIGH);
         digitalWrite(11, LOW);
         delay(1000);
-        int rand = random(1);
+        int rand = random(2);
         Serial.println(rand);
         if (rand)
         {
@@ -76,7 +76,7 @@ void loop()
         digitalWrite(10, HIGH);
         digitalWrite(11, LOW);
         delay(1000);
-        int rand = random(1);
+        int rand = random(2);
         Serial.println(rand);
         if (rand)
         {
