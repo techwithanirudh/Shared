@@ -139,7 +139,7 @@ def getMeaning(word):
         return out
     except Exception as e:
         with open('wordOfTheDay.log', 'a') as log:
-            log.write('Error: The Following Error occured: {}'.format(e))
+            log.write('\nError: The Following Error occured: {}'.format(e))
         log.close()
 
 def truncate(n, decimals=0):
@@ -155,7 +155,7 @@ def printMeaning(word, printM=True):
         for num1 in range(len(meaningV[num])):
             meaningStr += '\n' + str(num1 + 1) + '. ' + meaningV[num][num1].capitalize()
         if printM:
-            print('As a', meaningK[num], 'The Word', word, 'Is Usassly Defind as', meaningStr, '\n')
+            print('As a', meaningK[num], 'The Word', word, 'Is Usually Defind as', meaningStr, '\n')
     if not printM:
         return meaningStr
 
@@ -170,22 +170,22 @@ def genrateWord():
 
 def askMeaning():
     while True:
-        # word = genrateWord()
-        word = 'butt'
-        print(word)
+        word = genrateWord()
+        # word = 'twirled'
+        # print(word)
         try:
             listM = printMeaning(word, printM=False)
             break
         except AttributeError:
             pass
-    print(listM)
+    # print(listM)
     listM = listM.split('\n')
     listM1 = []
     for m in listM:
         m = m[3:]
         if m != '':
             listM1.append(m)
-    print(listM1)
+    # print(listM1)
     nlp = spacy.load('en_core_web_sm')
     while True:
         knowM = input(f'Do you know the meaning of the word {word}? ').lower()
@@ -205,13 +205,13 @@ def askMeaning():
                 confidence = int(str(confidence).split('0.')[1])
                 confidenceL.append(confidence)
                 print(confidence)
-            if any(confidence for confidence in confidenceL):
+            if any(confidence > 3 for confidence in confidenceL):
                 confidenceSet = True
             else:
                 confidenceSet = False
             if confidenceSet:
                 print(f'Yes your right... The meaning of the word is {meaningUserInp}', end='')
-                extraM = input(f'and there are some differnt meanigs for {word} do you want to see them? ').lower()
+                extraM = input(f' and there are some differnt meanigs for {word} do you want to see them? ').lower()
                 if extraM == 'yes':
                     printMeaning(word)
             else:
@@ -225,7 +225,7 @@ def askMeaning():
             confidence = truncate(confidence, 1)
             confidence = int(str(confidence).split('0.')[1])
             print(confidence)
-            if confidence > 4:
+            if confidence > 3:
                 print(f'Yes your right... The meaning of the word is {meaningUserInp}')
             else:
                 print(f'Hey liar the meaning of the word is not {meaningUserInp}. How dare you lie to me that you know the meaning. The meaning of the word is')
