@@ -25,9 +25,15 @@ def getMeaning(word):
     except Exception as e:
         print('Error: The Following Error occured: {}'.format(e))
 
-word = 'good'
-meaning = getMeaning(word)
-meaningK = list(meaning.keys())
-meaningV = list(meaning.values())
-for num in range(len(meaningK)):
-    print('As a', meaningK[num], 'The Word', word, 'Is Usassly Defind as', meaningV[num])
+def printMeaning(word):
+    meaning = getMeaning(word)
+    meaningK = list(meaning.keys())
+    meaningV = list(meaning.values())
+    for num in range(len(meaningK)):
+        meaningStr = ''
+        for num1 in range(len(meaningV[num])):
+            meaningStr += '\n' + str(num1 + 1) + '. ' + meaningV[num][num1].capitalize()
+        print('As a', meaningK[num], 'The Word', word, 'Is Usassly Defind as', meaningStr, '\n')
+
+word = input('Enter a word: ')
+printMeaning(word)
