@@ -27,7 +27,7 @@ def exp(bas, expN):
         return ((bas % N) * t) % N
 
 expS = ''
-expL = list(str(exp(10, 4)))
+expL = list(str(exp(10, int(b3))))
 
 for num in range(1, len(expL)):
     expS += expL[num]
