@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+	<meta charset='UTF-8'>
+	<title>Whatsapp UI</title>
+    <link rel='stylesheet' href='css/style1.css'>
+    <script>
+        function getTime()
+        {
+            var date = new Date();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var ampm = 'AM';
+
+                if (hour > 12)
+                {
+                    hour = hour - 12;
+                    hour = hour.
+                    toString();
+                    ampm = 'PM';
+                }
+
+                if (minute < 10)
+                {
+                    minute = '0' + minute;
+                    minute = minute.toString();
+                }
+                currentTime = hour + ':' + minute + ' ' + ampm;
+                return currentTime;
+        }
+
+        function sendMessage()
+        {
+            var chatbox = document.getElementById('displaymsg');
+            var msgTemplate = document.getElementById('msgTemplate');
+            var msgElement = document.getElementById('msg');
+
+            if (msgElement != null)
+            {
+                var msg = msgElement.value;
+                msgElement.value = '';
+            var typedmsg = getMsgTemplate();
+            var typedmsg1 = typedmsg.replace('none','block').toString();
+            typedmsg1 = typedmsg1.replace('{{message}}',msg).toString() ;
+            typedmsg1 = typedmsg1.replace('{{time}}',getTime());
+            console.log('msg', msg)
+            chatbox.innerHTML = chatbox.innerHTML + typedmsg1;
+            }
+        }
+        
+        function getMsgTemplate()
+        {
+            var msgTemplate = document.getElementById('msgTemplate');
+            return msgTemplate.innerHTML;  
+        }
+        // alert('one')
+    </script>
+</head>
+<body>
+	<div class='container'>
+		<div class='chat'>
+			<div class='chat-header'>
+				<div class='profile'>
+					<div class='left'>
+                        <img src="img/pp.png" class="pp" alt="User Img">
+                        <button onclick="alert('fart')" style="background-color:transparent; border-color:transparent;" id='btnBack'>
+                            <img src="img/arrow.png" class="arrow" alt='arrow'>
+                        </button>
+                        <script>        
+                            var btnBackSet = document.getElementById('btnBack');
+                            var x = 715;
+                            var y = -5;
+                            btnBackSet.style.position = "absolute"; 
+                            btnBackSet.style.left = x + 'px'; 
+                            btnBackSet.style.top = y + 'px'; 
+                        </script>
+						<h2>Anirudh</h2>
+						<!-- <span>online</span> -->
+						<!-- <pre style='color: white; font-size: xx-large;'>                   Chat Area</pre> -->
+					</div>
+				</div>
+			</div>
+
+			<div class='chat-box' id='chatbox'>
+                <div id='displaymsg'>
+                </div>
+
+			<div class='chat-footer'>
+				<textarea placeholder='Type a message...' id='msg'></textarea>
+					<img src='img/send2.png' onclick='sendMessage()' style='width: 100px; height: 70px;'>
+			</div>
+		</div>
+    </div>
+    <div class='chat-r' style='display: none;' id='msgTemplate'>
+        <div class='mess mess-r'>
+            <!-- <p style='font-size: small;'>name: ani</p> -->
+            <p>{{message}}</p>
+            <div class="check">
+                <span id='time'>{{time}}</span>
+                <img src="img/check-2.png">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
