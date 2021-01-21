@@ -1,0 +1,210 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+.container {
+	width: 1600px;
+	margin: auto;
+}
+.chat {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background: #f1f0e8;
+}
+.header {
+	text-align: center;
+}
+.profile {
+	width: 100%;
+	background: #036055;
+	display: flex;
+	align-items: center;
+	height: 60px;
+	padding: 0px 10px;
+	position: relative;
+}
+.profile .pp {
+	width: 50px;
+	display: inline-block;
+	border-radius: 50%;
+	margin-left: 32px;
+}
+.profile .arrow {
+	display: inline-block;
+	width: 30px;
+	position: absolute;
+	top: 19px;
+	cursor: pointer;
+}
+.profile h2 {
+	display: inline-block;
+	line-height: 60px;
+	vertical-align: bottom;
+	color: #fff;
+	font-size: 20px;
+}
+.profile span {
+	color: #ccc;
+	position: absolute;
+	top: 42px;
+	left: 100px;
+	font-size: 14px;
+}
+.right .icon {
+	display: inline-block;
+	width: 25px;
+	margin-left: 10px;
+}
+.profile .left {
+	flex: 1;
+}
+
+.chat-box {
+	background: url('../img/bg.jpeg');
+	background-attachment: fixed;
+	padding-left: 20px;
+	overflow-y: scroll;
+	flex: 1;
+}
+.chat-box .img_chat {
+	width: 280px;
+}
+
+.chat-r {
+	display: flex;
+}
+.chat-r .sp {
+	flex: 1;
+}
+
+.chat-l {
+	display: flex;
+}
+.chat-l .sp {
+	flex: 1;
+}
+
+.chat-box .mess {
+	max-width: 300px;
+	background: #F7FCF6;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 20px 0px;
+	cursor: pointer;
+}
+.chat-box .mess p {
+	word-break: break-all;
+	font-size: 18px;
+}
+.chat-box .mess-r {
+    background: #E2FFC7;
+}
+.chat-box .emoji {
+	width: 20px;
+}
+.chat-box .check {
+	float: right;
+}
+.chat-box .check img {
+	width: 20px;
+}
+.chat-box .check span {
+	color: #888;
+	font-size: 12px;
+	font-weight: 700px;
+}
+
+*::-webkit-scrollbar {
+	width: 5px;
+}
+*::-webkit-scrollbar-track {
+	background: #f1f1f1;
+}
+*::-webkit-scrollbar-thumb {
+	background: #aaa;
+}
+
+.chat-footer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 60px;
+	position: relative;
+	cursor: pointer;
+}
+.chat-footer textarea {
+	display: block;
+	flex: 1;
+	width: 100%;
+	height: 50px;
+	border-radius: 60px;
+	margin: 5px;
+	padding: 10px;
+	outline: none;
+	font-size: 19px;
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 2px solid #ccc;
+	color: #555;
+	resize: none;
+}
+.chat-footer .mic {
+	display: block;
+	width: 55px;
+	height: 55px;
+	margin-right: 20px;
+}
+
+/* Style the tab */
+.tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons inside the tab */
+  .tab button {
+	background-color: inherit;
+	float: left;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 14px 16px;
+	transition: 0.3s;
+	font-size: 17px;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+	background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tab button.active {
+	background-color: #ccc;
+  }
+  
+  /* Style the tab content */
+  .tabcontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+  }
+
+.videoWrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
+}
+.videoWrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
