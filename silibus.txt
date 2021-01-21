@@ -3,10 +3,10 @@ Python creator and what is it
         Getting Started with print
             Debugging with print
                 Getting Started with input
-                    Getting Started With Datatypes
-                        Getting Started with variables
+                    Datatypes
+                        Variables
                             Getting Started with (Python Code Editor = IDLE)
-                                Getting Started with comments
+                                Comments
                                     Single quotes and double quotes
                                         Concatinating Strings
                                             String Concepts
@@ -19,3 +19,12 @@ Python creator and what is it
                                                                         Multiple Conditions
                                                                             Complex Conditions
                                                                                 Collections
+                                                                                    Loops
+                                                                                        Functions
+                                                                                            Virtual Environments
+                                                                                                Calling An Api
+                                                                                                    JSON
+                                                                                                        Managing keys
+                                                                                                            Decorators
+                                                                                                                Creating Modules
+                                                                                                                    Next Steps
