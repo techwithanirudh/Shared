@@ -1,0 +1,21 @@
+Python creator and what is it
+    Installing python
+        Getting Started with print
+            Debugging with print
+                Getting Started with input
+                    Getting Started With Datatypes
+                        Getting Started with variables
+                            Getting Started with (Python Code Editor = IDLE)
+                                Getting Started with comments
+                                    Single quotes and double quotes
+                                        Concatinating Strings
+                                            String Concepts
+                                                Library
+                                                    Date and time
+                                                        Optional: Installing VS Code, Debugging, Error Handling
+                                                            Getting Started With Stack Overflow
+                                                                Conditional Logic
+                                                                    If and else
+                                                                        Multiple Conditions
+                                                                            Complex Conditions
+                                                                                Collections
