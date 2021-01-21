@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+/* Style all input fields */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+} 
+</style>
+</head>
+<body>
+ <script>
+        function compute() {
+            var username = document.getElementById('UserName').value;
+          	var password = document.getElementById('psw').value;
+          	var confirm = document.getElementById('psw-repeat').value;
+          	alert(id);
+          	alert(validatePwd(password, confirm));
+          	if (validatePwd(password, confirm)) {
+              	alert('In');
+              	var data = username + '-' + password;
+              	alert(data);
+                var xhttp = new XMLHttpRequest();
+                alert('https://' + id + '.ngrok.io/Enroll-To-Live-Program/form/post/' + data);
+                xhttp.onload = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        alert('req.onload')
+                        alert(this.responseText);
+                    } else {
+                        alert('ERROR');
+                    }
+                };
+                xhttp.open("GET", 'https://' + id + '.ngrok.io/Enroll-To-Live-Program/form/post/' + data, true);
+                xhttp.send();
+  				
+             }
+        }
+
+          function validatePwd(password, confirm) {
+            	// check if all fields is not empty
+                if(password != confirm){
+                        alert('password did not match.'); //alert message
+                  		return false;
+                } else {
+                  		alert('true');
+                        return true; // submit form if validation has passed.
+                }
+            }
+   		  var id = window.prompt('Auth ID: ');
+ </script>
+ 
+
+  <div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+
+    <label for="usrn"><b>UserName</b></label>
+    <input type="text" placeholder="UserName" name="UserName" id="UserName" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" id="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
+    <label for="psw-repeat"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+    <hr>
+    <p>By registering you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+    <button type="button" class="registerbtn" onclick="compute()">Register</button>
+  </div>
+
+</body>
+</html>
