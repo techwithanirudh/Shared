@@ -44,9 +44,9 @@ while True:
         print('Don\'t Post to twitter')
     else:
         video.click()
-
         video_url = str(browser.current_url)
         id = video_url.split('=', 1)[1]
+        browser.get('https://www.youtube.com/')
         thumbnail_url = 'https:///img.youtube.com/vi/' + id + '/maxresdefault.jpg'
         image_path = download_thumbnail(thumbnail_url)
         F = open('titles.txt', 'w')
