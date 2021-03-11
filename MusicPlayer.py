@@ -61,7 +61,7 @@ subMenu.add_command(label="Exit", command=root.destroy)
 
 
 def about_us():
-    tkinter.messagebox.showinfo('About Melody', 'This is a music media_player build using Python Tkinter by @attreyabhatt')
+    tkinter.messagebox.showinfo('About Melody', 'This is a music media_player build using Python Tkinter by @techwithanirudh')
 
 
 subMenu = Menu(menubar, tearoff=0)
