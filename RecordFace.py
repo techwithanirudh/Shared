@@ -34,7 +34,6 @@ while True:
 		y1 = face.top()
 		x2 = face.right()
 		y2 = face.bottom()
-        # cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 3)
 		bbox = (x1, y1, x2, y2)
 		frame = imcrop(frame, bbox)
 
