@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+  <style>
+    html {
+      background-color: gray;
+    }
+
+    .input_video, .output_canvas {
+      border: 5px solid white;
+    }
+
+    .txt {
+      font-family: fantasy;
+      font-style: oblique;
+      font-weight: bold;
+      font-size: x-large;
+    }
+
+    .scan {
+      background-color: #008CBA; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .scan {
+      display: flex;
+      justify-content: space-evenly;
+      box-sizing: border-box;
+      width: 25%;
+      font-size: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    input[type=text], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+      float: left;
+    }
+
+    .done {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    .col-25 {
+      float: left;
+      width: 25%;
+      margin-top: 6px;
+    }
+
+    .col-75 {
+      float: left;
+      width: 75%;
+      margin-top: 6px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <video class="input_video" width="640px" height="480px"></video>
+    <canvas class="output_canvas" width="640px" height="480px"></canvas>    
+    <p class="txt">Source Video</p>
+    <div class='btn'>
+      <button class="scan" onclick="uploadPhoto()">Scan</button>
+    </div>
+  </div>
+
+  <div class="scanned">
+    <h1 class="txt">Success your face matched</h1>
+    <h3 class="txt">Enter your name to show the details</h3>
+    <form action="/name" method="POST">
+      <div class="row">
+        <div class="col-25">
+          <label for="fname" class="txt">First Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="lname" class="txt">Last Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <input type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+  <script>
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+    var scanned = document.getElementsByClassName("scanned");
+    
+    function onResults(results) {
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+      if (results.multiFaceLandmarks) {
+        for (const landmarks of results.multiFaceLandmarks) {
+          drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
+                         {color: '#C0C0C070', lineWidth: 1});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
+        }
+      }
+      canvasCtx.restore();
+    }
+
+    function hide(elements) {
+      elements = elements.length ? elements : [elements];
+      for (var index = 0; index < elements.length; index++) {
+        elements[index].style.display = 'none';
+      }
+    }
+
+    function show(elements) {
+      elements = elements.length ? elements : [elements];
+      for (var index = 0; index < elements.length; index++) {
+        elements[index].style.display = 'block';
+      }
+    }
+
+    function uploadPhoto(){
+      var url = canvasElement.toDataURL("image/jpeg");
+      var container = document.getElementsByClassName('container'); 
+      var req = new XMLHttpRequest();
+      req.open('POST', '/user-img', true);
+      req.send(url); // request.data
+      hide(container);
+      show(scanned);
+    }
+
+    const faceMesh = new FaceMesh({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }});
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    faceMesh.onResults(onResults);
+    
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await faceMesh.send({image: videoElement});
+      },
+      width: 640,
+      height: 480
+    });
+
+    window.addEventListener("load", camera.start(), false);
+    hide(scanned);
+  </script>
+</body>
+</html>
