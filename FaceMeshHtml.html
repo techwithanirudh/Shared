@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+  <style>
+    html {
+      background-color: gray;
+    }
+
+    .input_video, .output_canvas {
+      border: 5px solid white;
+    }
+
+    .txt {
+      font-family: fantasy;
+      font-style: oblique;
+      font-weight: bold;
+      font-size: x-large;
+    }
+
+    .scan {
+      background-color: #008CBA; /* Green */
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+
+    .scan {
+      display: flex;
+      justify-content: space-evenly;
+      box-sizing: border-box;
+      width: 25%;
+      font-size: 20px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <video class="input_video" width="640px" height="480px"></video>
+    <canvas class="output_canvas" width="640px" height="480px"></canvas>    
+    <p class="txt">Source Video</p>
+    <div class='btn'>
+      <button class="scan" onclick="uploadPhoto()">Scan</button>
+    </div>
+  </div>
+  <script>
+    const videoElement = document.getElementsByClassName('input_video')[0];
+    const canvasElement = document.getElementsByClassName('output_canvas')[0];
+    const canvasCtx = canvasElement.getContext('2d');
+    
+    function onResults(results) {
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(
+          results.image, 0, 0, canvasElement.width, canvasElement.height);
+      if (results.multiFaceLandmarks) {
+        for (const landmarks of results.multiFaceLandmarks) {
+          drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION,
+                         {color: '#C0C0C070', lineWidth: 1});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYE, {color: '#FF3030'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_EYEBROW, {color: '#FF3030'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYE, {color: '#30FF30'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_EYEBROW, {color: '#30FF30'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {color: '#E0E0E0'});
+          drawConnectors(canvasCtx, landmarks, FACEMESH_LIPS, {color: '#E0E0E0'});
+        }
+      }
+      canvasCtx.restore();
+    }
+
+    function hide(elements) {
+      elements = elements.length ? elements : [elements];
+      for (var index = 0; index < elements.length; index++) {
+        elements[index].style.display = 'none';
+      }
+    }
+
+    function getUrl() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          return this.responseText;
+        }
+      };
+      xhttp.open("GET", "", true);
+      xhttp.send();
+    }
+
+    function uploadPhoto(){
+      var url = canvasElement.toDataURL("image/jpeg");
+      var container = document.getElementsByClassName('container'); 
+      var req = new XMLHttpRequest();
+      req.open('POST', getUrl, true);
+      req.send(url); // request.data
+      hide(container);
+    }
+
+    const faceMesh = new FaceMesh({locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`;
+    }});
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5
+    });
+    faceMesh.onResults(onResults);
+    
+    const camera = new Camera(videoElement, {
+      onFrame: async () => {
+        await faceMesh.send({image: videoElement});
+      },
+      width: 640,
+      height: 480
+    });
+
+    window.addEventListener("load", camera.start(), false);
+  </script>
+</body>
+</html>
