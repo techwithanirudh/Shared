@@ -4,8 +4,8 @@ import os
 
 os.chdir(os.path.dirname(__file__))
 
-_from = 'smtpmessages.manager@gmail.com'
-pwd = 'smtpmessages.manager@gmail.com@2012'
+_from = '***@gmail.com'
+pwd = '***'
 
 def send_email(receiver, subject, message, subtype='plain'):
     server = smtplib.SMTP('smtp.gmail.com', 587)
