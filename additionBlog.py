@@ -1,3 +1,5 @@
+# delete site.db
+
 # models.py, class Post, ln 6
 tags = db.Column(db.String(201))
 
@@ -43,11 +45,11 @@ tags = TextAreaField('Tags', validators=[DataRequired()])
       <p class="article-tags">{{ post.tags }}</p>
 '''
 
-# posts/routes.py, function update_post, ln 41
+# posts/routes.py, function update_post, ln 9
 post.tags = form.content.data
 
 # posts/routes.py, function tag_find, ln 80
-@users.route("/tagfind/<string:tag>")
+@posts.route("/tagfind/<string:tag>")
 def tag_find(tag):
     page = request.args.get('page', 1, type=int)
     search = "%{}%".format(tag)
