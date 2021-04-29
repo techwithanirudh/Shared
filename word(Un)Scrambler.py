@@ -16,7 +16,6 @@ sGen, word = sGen.lower(), word.lower()
 
 if sGen == 'y': sGen = True
 if sGen == 'n': sGen = False
-wordInp = word
 
 def shuffle_word(word):
     word = list(word)
