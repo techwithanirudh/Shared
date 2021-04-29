@@ -2,12 +2,17 @@ from spellchecker import SpellChecker
 from random import shuffle
 import time, os
 
+# ansW = 'moon'
 # dog, cat
 spell = SpellChecker()
 os.system('cls')
-word = input('Enter a word: ').lower()
+word = input('Enter a word: ')
+wordInp = word
 times = 0
-sGen = input('Do you want to scramble it (Y/N)? ').lower()
+sGen = input('Do you want to scramble it (Y/N)? ')
+sGenInp = sGen
+
+sGen, word = sGen.lower(), word.lower()
 
 if sGen == 'y': sGen = True
 if sGen == 'n': sGen = False
@@ -39,11 +44,14 @@ while True:
                     print('Unscrambled Word Is:', corrected)
                     if sGen: print('Scrambled Word Is:', wordShu)
                     correct = input('Is this correct (Y/N)? ').lower()
+                    # correct = 'n'
+                    # if corrected == ansW: correct = 'y'
                     if correct == 'y': correct = True
                     if correct == 'n': correct = False
                     if correct: break
                     os.system('cls')
                     print('Enter a word:', wordInp)
+                    print('Do you want to scramble it (Y/N)?', sGenInp)
     except KeyboardInterrupt:
         os.system('cls')
         print('Exiting Program...')
