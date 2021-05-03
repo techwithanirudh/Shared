@@ -1,0 +1,44 @@
+<!-- Using html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VirusTotal Search</title>
+</head>
+<body>
+    <h1>VirusTotal Search</h1>
+    <script>
+        var url = window.prompt('Enter a search query: ');
+        url = encodeURIComponent(url);
+        url = url.replaceAll('%2F', '%252F');
+        urlLst = url.split('');
+        if (urlLst[5] != 's') {
+            url = url.replace('http%3A', 'http%253A');
+        } else {
+            url = url.replace('https%3A', 'https%253A');
+        }
+
+        var VTurl = 'https://www.virustotal.com/gui/search/' + url; 
+        document.location.href = VTurl;
+    </script>
+</body>
+</html>
+
+# Using python
+from urllib.parse import quote_plus
+import webbrowser
+
+print('VirusTotal Search')
+url = input('Enter a search query: ')
+url = quote_plus(url)
+url = url.replace('%2F', '%252F')
+
+if url[5] != 's':
+    url = url.replace('http%3A', 'http%253A')
+else:
+    url = url.replace('https%3A', 'https%253A')
+
+VTurl = 'https://www.virustotal.com/gui/search/' + url
+
+webbrowser.open(VTurl)
